@@ -4,11 +4,22 @@ from . import views
 
 app_name = 'music'
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.IndexView.as_view(), name='index'),
+
+    path('register', views.UserFormView.as_view(), name='register'),
 
     #/music/71/
-    path('<int:album_id>',views.detail, name="detail"),
+    path('<int:pk>',views.DetailView.as_view(), name="detail"),
 
-    #/music/71/favorite 
-    path('<int:album_id>/favorite',views.favorite, name="favorite"),
+    # /music/album/add/
+    path('album/add',views.AlbumCreate.as_view(), name="album-add"),
+
+    # /music/album/2/
+    path('album/<int:pk>',views.AlbumUpdate.as_view(), name="album-update"),
+
+    # /music/album/2/delete
+    path('album/<int:pk>/delete',views.AlbumDelete.as_view(), name="album-delete"),
+
+    # /music/album/createMusician/
+    path('album/createMusician',views.RegisterUser.as_view(), name="register-user"),
 ]
